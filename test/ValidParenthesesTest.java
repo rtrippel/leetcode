@@ -16,9 +16,18 @@ class ValidParenthesesTest {
 
     public static Stream<Arguments> getInputOutput() {
         return Stream.of(
+                Arguments.of("(){}}{", false),
                 Arguments.of("()", true),
                 Arguments.of("()[]{}", true),
-                Arguments.of("(]", false)
+                Arguments.of("(]", false),
+                Arguments.of("([)]", false),
+                Arguments.of("([]{})", true),
+                Arguments.of("([]{}", false),
+                Arguments.of("[[[]", false),
+                Arguments.of("[])", false),
+                Arguments.of("(([()]){})", true),
+                Arguments.of("({{{{}}}))", false),
+                Arguments.of("(", false)
         );
     }
 
@@ -27,6 +36,6 @@ class ValidParenthesesTest {
     void testSuccess(String input, boolean expected) {
 
         boolean result = validParentheses.isValid(input);
-        Assertions.assertEquals(result, expected);
+        Assertions.assertEquals(expected, result);
     }
 }
